@@ -1,0 +1,228 @@
+{%  extends 'app/main.html' %}
+
+{% block title %} Orders {% endblock %}
+{% block content %}
+
+
+<div class="container-fluid px-lg-4">
+    {%  include 'app/dashboard/KPI_header.html' %}
+    <div class='row'>
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- title -->
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Order Details</h4>
+                            <h5 class="card-subtitle">Overview of Order Details</h5>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- title -->
+                </div>
+                <div class="mx-3">
+                    <table class="FullPageDisplayTable table table-sm" id='orderDetails'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>IC</th>
+                                <th>Delivery</th>
+                                <th>Date Placed</th>
+                                <th>Cust Fty Code</th>
+                                <th>Destination</th>
+                                <th>Buyer</th>
+                                <th>Consol Num</th>
+                                <th>Dept</th>
+                                <th>Style</th>
+                                <th>Colour</th>
+                                <th>Size</th>
+                                <th>Description</th>
+                                <th>Qty</th>
+                                <th>Carton Qty On Order</th>
+                                <th>No Of Cartons Per Sku</th>
+                                <th>Uk Cost Price On Order</th>
+                                <th>Pricing Type On Order</th>
+                                <th>Selling Price On Order</th>
+                                <th>Ticket Price On Order</th>
+                                <th>Ticket Type On Order</th>
+                                <th>Ticket Type Id On Order</th>
+                                <!-- <th>Update</th> -->
+                                <!-- <th>Actions</th> -->
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            {% for order in orderDetails %}
+                            <tr>
+                                <td>{{order.ic}}</td>
+                                <td>{{order.delivery}}</td>
+                                <td>{{order.date_placed}}</td>
+                                <td>{{order.cust_fty_code}}</td>
+                                <td>{{order.destination}}</td>
+                                <td>{{order.buyer}}</td>
+                                <td>{{order.consol_num}}</td>
+                                <td>{{order.dept}}</td>
+                                <td>{{order.style}}</td>
+                                <td>{{order.colour}}</td>
+                                <td>{{order.size}}</td>
+                                <td>{{order.description}}</td>
+                                <td>{{order.qty}}</td>
+                                <td>{{order.carton_qty_on_order}}</td>
+                                <td>{{order.no_of_cartons_per_sku}}</td>
+                                <td>{{order.uk_cost_price_on_order}}</td>
+                                <td>{{order.pricing_type_on_order}}</td>
+                                <td>{{order.selling_price_on_order}}</td>
+                                <td>{{order.ticket_price_on_order}}</td>
+                                <td>{{order.ticket_type_on_order}}</td>
+                                <td>{{order.ticket_type_id_on_order}}</td>
+                                <!-- <td> update</td> -->
+    
+                                <!-- <td>
+                                    <div class='row'>
+                                    <a class="btn btn-sm btn-danger" href="#">Download 1</a>
+                                    <a class="btn btn-sm btn-danger ml-2" href="#">Download 2</a>
+                                    <a class="btn btn-sm btn-danger ml-2" href="#">Download 2</a>
+                                    </div>
+                                </td>-->
+    
+                            </tr>
+    
+                            {% endfor %} 
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+<script>
+
+    
+    $(document).ready(function() {
+
+    var table = $('#orderDetails').DataTable({
+        lengthMenu: [[10, 20, 50], [10, 20, 50]],
+        "serverSide": true,
+        "ajax": "/api/order_details/?format=datatables",
+        "columns": [
+            {"data": "ic"},
+            // Use dot notation to reference nested serializers.
+            // This data: could alternatively be displayed with the serializer's ReadOnlyField as well, as seen in the minimal example.
+            {"data": "delivery"},
+            {"data": "date_placed"},
+            {"data": "cust_fty_code"},
+            {"data": "destination"},
+            {"data": "buyer"},
+            {"data": "consol_num"},
+            {"data": "dept"},
+            {"data": "style"},
+            {"data": "colour"},
+            {"data": "size"},
+            {"data": "description"},
+            {"data": "qty"},
+            {"data": "carton_qty_on_order"},
+            {"data": "no_of_cartons_per_sku"},
+            {"data": "uk_cost_price_on_order"},
+            {"data": "pricing_type_on_order"},
+            {"data": "selling_price_on_order"},
+            {"data": "ticket_price_on_order"},
+            {"data": "ticket_type_on_order"},
+            {"data": "ticket_type_id_on_order"},
+            {
+                "data": null,
+                "render": function ( data, type, row ) {
+                    var output = "<a class=\"btn btn-sm btn-info\" href=\"{% url 'update_order' 12345 %}\">" + "Update </a>"
+                    output = output.replace(12345, data.delivery.toString());
+                    return output;
+                }
+              }
+        ],
+        orderCellsTop: true,
+        fixedHeader: true,
+        scrollY:        '60vh',
+        scrollX :true,
+        scrollCollapse: false,
+        paging:         true,
+        dom: 'Blfrtip',
+        columnDefs: [
+            {
+                targets: 1,
+                className: 'noVis'
+            }
+        ],
+        buttons: [
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)',
+                text:'Select Columns'
+                
+            },
+            {
+                extend: 'collection',
+                text: 'Download',
+                buttons: [
+                    {
+                        text: 'Copy',
+                        extend:'copy',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                        
+                    },
+                    {
+                        text: 'CSV',
+                        extend:'csv',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                        
+                    },
+                    {
+                        text: 'Excel',
+                        extend:'excel',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                        
+                    },
+                    {
+                        text: 'PDF',
+                        extend:'pdf',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                        
+                    },
+                    {
+                        text: 'Print',
+                        extend:'print',
+                        exportOptions: {
+                            columns: [ 0, ':visible' ]
+                        }
+                        
+                    },
+
+                ]
+            }
+        ]
+    });
+
+});
+
+
+
+</script>

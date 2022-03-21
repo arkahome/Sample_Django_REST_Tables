@@ -1,0 +1,315 @@
+{%  extends 'app/main.html' %}
+
+{% block title %} Products {% endblock %}
+{% block content %}
+
+
+<div class="container-fluid px-lg-4">
+    <div class='row'>
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- title -->
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Products</h4>
+                            <h5 class="card-subtitle">Overview of Products</h5>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <!-- <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- title -->
+                </div>
+                <div class="mx-3">
+                    <table class="table table-sm" id='ProductID'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Update</th>
+                                <th>Dept</th>
+                                <th>Styl</th>
+                                <th>Colour</th>
+                                <th>Size</th>
+                                <th>Description</th>
+                                <th>Date Created</th>
+                                <th>User Verified</th>
+                                <th>ChkDigit</th>
+                                <th>Supplier Code</th>
+                                <th>Account</th>
+                                <th>TLA Fty Code</th>
+                                <th>Cust Fty Code</th>
+                                <th>Barcode</th>
+                                <th>Trading Code</th>
+                                <th>Fabrication</th>
+                                <th>Main Fabric GSM</th>
+                                <th>Fabric Type</th>
+                                <th>Knit/Wov/Others/Acc</th>
+                                <th>Gender</th>
+                                <th>Season Code</th>
+                                <th>Carton Qty in TLA portal</th>
+                                <th>Cost Price Currency</th>
+                                <th>UK Cost Price in TLA portal</th>
+                                <th>Fty Price</th>
+                                <th>Unit Commission</th>
+                                <th>Unit Commission Percent</th>
+                                <th>Pricing Type in TLA Portal</th>
+                                <th>Selling Price in TLA Portal</th>
+                                <th>Ticket Type in TLA Portal</th>
+                                <th>Ticket TypeID in TLA Portal</th>
+                                <th>Ticket Price in TLA Portal</th>
+                                <th>Last Price Change Detected</th>
+                                <th>Country of Manufacture</th>
+                                <th>Port Of Loading</th>
+                                <th>Carton Length</th>
+                                <th>Carton Breadth</th>
+                                <th>Carton Height</th>
+                                <th>Carton Type</th>
+                                <th>photo sample date</th>
+                                <th>last shipped</th>
+                                <th>status</th>
+                                <th>Primary Key</th>
+                            </tr>
+                        </thead>
+                        <tfoot class='thead-light'>
+                            <tr>
+                                <th>Update</th>
+                                <th>Dept</th>
+                                <th>Styl</th>
+                                <th>Colour</th>
+                                <th>Size</th>
+                                <th>Description</th>
+                                <th>Date Created</th>
+                                <th>User Verified</th>
+                                <th>ChkDigit</th>
+                                <th>Supplier Code</th>
+                                <th>Account</th>
+                                <th>TLA Fty Code</th>
+                                <th>Cust Fty Code</th>
+                                <th>Barcode</th>
+                                <th>Trading Code</th>
+                                <th>Fabrication</th>
+                                <th>Main Fabric GSM</th>
+                                <th>Fabric Type</th>
+                                <th>Knit/Wov/Others/Acc</th>
+                                <th>Gender</th>
+                                <th>Season Code</th>
+                                <th>Carton Qty in TLA portal</th>
+                                <th>Cost Price Currency</th>
+                                <th>UK Cost Price in TLA portal</th>
+                                <th>Fty Price</th>
+                                <th>Unit Commission</th>
+                                <th>Unit Commission Percent</th>
+                                <th>Pricing Type in TLA Portal</th>
+                                <th>Selling Price in TLA Portal</th>
+                                <th>Ticket Type in TLA Portal</th>
+                                <th>Ticket TypeID in TLA Portal</th>
+                                <th>Ticket Price in TLA Portal</th>
+                                <th>Last Price Change Detected</th>
+                                <th>Country of Manufacture</th>
+                                <th>Port Of Loading</th>
+                                <th>Carton Length</th>
+                                <th>Carton Breadth</th>
+                                <th>Carton Height</th>
+                                <th>Carton Type</th>
+                                <th>photo sample date</th>
+                                <th>last shipped</th>
+                                <th>status</th>
+                                <th>Primary Key</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#ProductID tfoot th').each( function () {
+            var title = $('#ProductID thead th').eq( $(this).index() ).text();
+            // Custom Styling for the search boxes
+            var styling = `display: block;width: 100; height: calc(2rem + 2px);
+                            padding: .1rem .1rem;
+                            font-size: .9rem;
+                            line-height: 1;
+                            color: #495057;
+                            background-color: #fff;
+                            border: 1px solid #ced4da;
+                            border-radius: .25rem;
+                            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;`
+
+            $(this).html( '<input type="text" style="'+styling+'" placeholder="'+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#ProductID').DataTable({
+            lengthMenu: [[5, 10, 20, 50, 100], [5, 10, 20, 50, 100]],
+            orderCellsTop: true,
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+            "serverSide": true,
+            "ajax": "/api/product/?format=datatables",
+            "columns": [
+                            {
+                                "data": null,
+                                "render": function ( data, type, row ) {
+                                    var output = "<a class=\"btn btn-sm btn-info\" href=\"{% url 'update_product' 12345 %}\">" + "Update </a>"
+                                    output = output.replace(12345, data.product_pk);
+                                    return output;
+                                }
+                            },
+                            {"data": "dept"},
+                            {"data": "styl"},
+                            {"data": "colour"},
+                            {"data": "size"},
+                            {"data": "description"},
+                            {"data": "date_created"},
+                            {"data": "user_verified"},
+                            {"data": "chkdigit"},
+                            {"data": "supplier_code"},
+                            {"data": "account"},
+                            {"data": "tla_fty_code"},
+                            {"data": "cust_fty_code"},
+                            {"data": "barcode"},
+                            {"data": "trading_code"},
+                            {"data": "fabrication"},
+                            {"data": "main_fabric_gsm"},
+                            {"data": "fabric_type"},
+                            {"data": "knit_wov_others_acc"},
+                            {"data": "gender"},
+                            {"data": "season_code"},
+                            {"data": "carton_qty_in_tla_portal"},
+                            {"data": "cost_price_currency"},
+                            {"data": "uk_cost_price_in_tla_portal"},
+                            {"data": "fty_price"},
+                            {"data": "unit_commission"},
+                            {"data": "unit_commission_percent"},
+                            {"data": "pricing_type_in_tla_portal"},
+                            {"data": "selling_price_in_tla_portal"},
+                            {"data": "ticket_type_in_tla_portal"},
+                            {"data": "ticket_type_id_in_tla_portal"},
+                            {"data": "ticket_price_in_tla_portal"},
+                            {"data": "last_price_change_detected"},
+                            {"data": "country_of_manufacture"},
+                            {"data": "port_of_loading"},
+                            {"data": "carton_length"},
+                            {"data": "carton_breadth"},
+                            {"data": "carton_height"},
+                            {"data": "carton_type"},
+                            {"data": "photo_sample_date"},
+                            {"data": "last_shipped"},
+                            {"data": "status"},
+                            {"data": "product_pk"},
+
+            ],
+            stateSave: true,
+            scrollY:true,
+            scrollX :true,
+            scrollCollapse: false,
+            paging:         true,
+            dom: 'Blfrtip',
+            columnDefs: [
+                {
+                    targets: 1,
+                    className: 'noVis'
+                },
+            ],
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)',
+                    text:'Select Columns'
+                    
+                },
+                {
+                    extend: 'collection',
+                    text: 'Download',
+                    buttons: [
+                        {
+                            text: 'Copy',
+                            extend:'copy',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'CSV',
+                            extend:'csv',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Excel',
+                            extend:'excel',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'PDF',
+                            extend:'pdf',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Print',
+                            extend:'print',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+    
+                    ]
+                }
+            ]
+        });
+      
+        // Restore state
+        var state = table.state.loaded();
+        if ( state ) {
+          table.columns().eq( 0 ).each( function ( colIdx ) {
+            var colSearch = state.columns[colIdx].search;
+            
+            if ( colSearch.search ) {
+              $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+            }
+          } );
+          
+          table.draw();
+        }
+        
+        // Apply the search
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                table
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
+            } );
+        } );
+    } );
+
+</script>
+{% endblock %}

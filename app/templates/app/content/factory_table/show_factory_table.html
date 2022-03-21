@@ -1,0 +1,319 @@
+{%  extends 'app/main.html' %}
+
+{% block title %} Factory Table {% endblock %}
+{% block content %}
+
+
+<div class="container-fluid px-lg-4">
+    <div class='row'>
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- title -->
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Factory Table</h4>
+                            <h5 class="card-subtitle">Overview of Factory Table</h5>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <a href="{% url 'create_factory_table' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    class="fas fa-sm text-white-50"></i>
+                                Create New Record</a>
+                                <!-- <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- title -->
+                </div>
+                <div class="mx-3">
+                    <table class="table table-sm" id='factoryTable'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Status</th>
+                                <th>Any Transactions</th>
+                                <th>Grade</th>
+                                <th>Type</th>
+                                <th>Source</th>
+                                <th>Tla Fty Code</th>
+                                <th>Cust Fty Code</th>
+                                <th>Product Type</th>
+                                <th>Chinese Name</th>
+                                <th>Chinese Name PO</th>
+                                <th>Chinese Alias</th>
+                                <th>English Name</th>
+                                <th>English Name PO</th>
+                                <th>English Alias</th>
+                                <th>Port Of Loading 1</th>
+                                <th>Port Of Loading 2</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Mobile</th>
+                                <th>Fax</th>
+                                <th>Chinese Addr</th>
+                                <th>Postcode</th>
+                                <th>English Addr</th>
+                                <th>Benficiary</th>
+                                <th>Bank Name</th>
+                                <th>Bank Acc</th>
+                                <th>Transaction Currency</th>
+                                <th>Trading Terms</th>
+                                <th>Payment</th>
+                                <th>Term</th>
+                                <th>Payment2</th>
+                                <th>Term2</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Country Of Manufacture</th>
+                                <th>Leadtime</th>
+                                <th>Normal Production Leadtime</th>
+                                <th>Peak Period Production Leadtime</th>
+                                <th>Peak Months</th>
+                                <th>Year First Used</th>
+                                <th>Compliance</th>
+                                <th>Merch Dept</th>
+                                <th>Compliance Grade</th>
+                                <th>Compliance Expiry</th>
+                            </tr>
+                        </thead>
+                        <tfoot class='thead-light'>
+                            <tr>
+                                <th>Status</th>
+                                <th>Any Transactions</th>
+                                <th>Grade</th>
+                                <th>Type</th>
+                                <th>Source</th>
+                                <th>Tla Fty Code</th>
+                                <th>Cust Fty Code</th>
+                                <th>Product Type</th>
+                                <th>Chinese Name</th>
+                                <th>Chinese Name PO</th>
+                                <th>Chinese Alias</th>
+                                <th>English Name</th>
+                                <th>English Name PO</th>
+                                <th>English Alias</th>
+                                <th>Port Of Loading 1</th>
+                                <th>Port Of Loading 2</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Mobile</th>
+                                <th>Fax</th>
+                                <th>Chinese Addr</th>
+                                <th>Postcode</th>
+                                <th>English Addr</th>
+                                <th>Benficiary</th>
+                                <th>Bank Name</th>
+                                <th>Bank Acc</th>
+                                <th>Transaction Currency</th>
+                                <th>Trading Terms</th>
+                                <th>Payment</th>
+                                <th>Term</th>
+                                <th>Payment2</th>
+                                <th>Term2</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Country Of Manufacture</th>
+                                <th>Leadtime</th>
+                                <th>Normal Production Leadtime</th>
+                                <th>Peak Period Production Leadtime</th>
+                                <th>Peak Months</th>
+                                <th>Year First Used</th>
+                                <th>Compliance</th>
+                                <th>Merch Dept</th>
+                                <th>Compliance Grade</th>
+                                <th>Compliance Expiry</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#factoryTable tfoot th').each( function () {
+            var title = $('#factoryTable thead th').eq( $(this).index() ).text();
+            // Custom Styling for the search boxes
+            var styling = `display: block;width: 100; height: calc(2rem + 2px);
+                            padding: .1rem .1rem;
+                            font-size: .9rem;
+                            line-height: 1;
+                            color: #495057;
+                            background-color: #fff;
+                            border: 1px solid #ced4da;
+                            border-radius: .25rem;
+                            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;`
+
+            $(this).html( '<input type="text" style="'+styling+'" placeholder="'+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#factoryTable').DataTable({
+            lengthMenu: [[5, 10, 20, 50, 100], [5, 10, 20, 50, 100]],
+            orderCellsTop: true,
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+            "serverSide": true,
+            "ajax": "/api/factory_table/?format=datatables",
+            "columns": [
+                {"data": "status"},
+                // Use dot notation to reference nested serializers.
+                // This data: could alternatively be displayed with the serializer's ReadOnlyField as well, as seen in the minimal example.
+                {"data": "any_transactions"},
+                {"data": "grade"},
+                {"data": "type"},
+                {"data": "source"},
+                {"data": "tla_fty_code"},
+                {"data": "cust_fty_code"},
+                {"data": "product_type"},
+                {"data": "chinese_name"},
+                {"data": "chinese_name_po"},
+                {"data": "chinese_alias"},
+                {"data": "english_name"},
+                {"data": "english_name_po"},
+                {"data": "english_alias"},
+                {"data": "port_of_loading_1"},
+                {"data": "port_of_loading_2"},
+                {"data": "contract"},
+                {"data": "email"},
+                {"data": "phone"},
+                {"data": "mobile"},
+                {"data": "fax"},
+                {"data": "chinese_addr"},
+                {"data": "postcode"},
+                {"data": "english_addr"},
+                {"data": "beneficiary"},
+                {"data": "bank_name"},
+                {"data": "bank_acc"},
+                {"data": "transaction_currency"},
+                {"data": "trading_terms"},
+                {"data": "payment"},
+                {"data": "term"},
+                {"data": "payment2"},
+                {"data": "term2"},
+                {"data": "country"},
+                {"data": "city"},
+                {"data": "country_of_manufacture"},
+                {"data": "leadtime"},
+                {"data": "normal_production_leadtime"},
+                {"data": "peak_period_production_leadtime"},
+                {"data": "peak_months"},
+                {"data": "year_first_used"},
+                {"data": "compliance"},
+                {"data": "merch_dept"},
+                {"data": "compliance_grade"},
+                {"data": "compliance_expiry"},
+
+            ],
+            stateSave: true,
+            scrollY:true,
+            scrollX :true,
+            scrollCollapse: false,
+            paging:         true,
+            dom: 'Blfrtip',
+            columnDefs: [
+                {
+                    targets: 1,
+                    className: 'noVis'
+                }
+            ],
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)',
+                    text:'Select Columns'
+                    
+                },
+                {
+                    extend: 'collection',
+                    text: 'Download',
+                    buttons: [
+                        {
+                            text: 'Copy',
+                            extend:'copy',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'CSV',
+                            extend:'csv',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Excel',
+                            extend:'excel',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'PDF',
+                            extend:'pdf',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Print',
+                            extend:'print',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+    
+                    ]
+                }
+            ]
+        });
+      
+        // Restore state
+        var state = table.state.loaded();
+        if ( state ) {
+          table.columns().eq( 0 ).each( function ( colIdx ) {
+            var colSearch = state.columns[colIdx].search;
+            
+            if ( colSearch.search ) {
+              $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+            }
+          } );
+          
+          table.draw();
+        }
+        
+        // Apply the search
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                table
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
+            } );
+        } );
+    } );
+
+</script>
+{% endblock %}

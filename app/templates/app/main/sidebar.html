@@ -1,0 +1,124 @@
+
+{% load static %}
+<!-- Sidebar -->
+<nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
+    <div class="simplebar-content" style="padding: 0px;">
+        <a class="sidebar-brand" href="index.html">
+            <span class="align-middle">TEX LINE</span>
+        </a>
+
+        <ul class="navbar-nav align-self-stretch">
+
+            <li class="sidebar-header font-weight-bold">
+                Overall
+            </li>
+            <li class="">
+                <a class="nav-link text-left {% if request.resolver_match.url_name == 'home' %}active{% endif %}" role="button" 
+                                                            aria-haspopup="true" aria-expanded="false" href="{% url 'home' %}" >
+                    <i class="flaticon-bar-chart-1"></i> Dashboard
+                </a>
+            </li>
+
+            <!-- <li class="has-sub">
+                <a class="nav-link collapsed text-left" href="#collapseExample2" role="button" data-toggle="collapse">
+                    <i class="flaticon-user"></i> Details
+                </a>
+                <div class="collapse menu mega-dropdown" id="collapseExample2">
+                    <div class="dropmenu" aria-labelledby="navbarDropdown">
+                        <div class="container-fluid ">
+                            <div class="row">
+                                <div class="col-lg-12 px-2">
+                                    <div class="submenu-box">
+                                        <ul class="list-unstyled m-0">
+                                            <li><a href="">PHP Frameworks</a></li>
+                                            <li><a href="">Laravel</a></li>
+                                            <li><a href=""> Codeigniter</a></li>
+                                            <li><a href="">Node.js</a></li>
+                                            <li><a href="">AngularJS</a></li>
+                                            <li><a href="">ReactJS</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button" >
+                    <i class="flaticon-bar-chart-1"></i> setting
+                </a>
+            </li>
+
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-bar-chart-1"></i> invoice
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-bar-chart-1"></i> Bank
+                </a>
+            </li> -->
+            <li class="sidebar-header font-weight-bold">
+                All Details
+            </li>
+
+            <li class="">
+                <a class="nav-link text-left {% if request.resolver_match.url_name == 'show_order' %}active{% endif %}" role="button" href="{% url 'show_order' %}">
+                    <i class="flaticon-bar-chart-1"></i> Orders
+                </a>
+            </li>
+
+            <li class="">
+                <a class="nav-link text-left {% if request.resolver_match.url_name == 'order_details' %}active{% endif %}" role="button" href="{% url 'order_details' %}">
+                    <i class="flaticon-bar-chart-1"></i> Order Details
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-bar-chart-1"></i> Shipping
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link text-left {% if request.resolver_match.url_name == 'show_product' %}active{% endif %}" role="button" href="{% url 'show_product' %}">
+                    <i class="flaticon-bar-chart-1"></i> Product
+                </a>
+            </li>
+
+            <li class="">
+                <a class="nav-link text-left {% if request.resolver_match.url_name == 'show_factory_table' %}active{% endif %}" role="button" 
+                aria-haspopup="true" aria-expanded="false" href="{% url 'show_factory_table' %}" >
+                    
+                    <i class="flaticon-bar-chart-1"></i> Factory
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-bar-chart-1"></i> Buyer
+                </a>
+            </li>
+
+            <!-- <li class="sidebar-header">
+                tools and component
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-bar-chart-1"></i> chart
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link text-left" role="button">
+                    <i class="flaticon-map"></i> map
+                </a>
+            </li> -->
+
+        </ul>
+
+
+    </div>
+
+
+</nav>
+<!-- /#sidebar-wrapper -->

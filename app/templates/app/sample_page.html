@@ -1,0 +1,110 @@
+{%  extends 'app/main.html' %}
+
+{% block title %} Orders {% endblock %}
+{% block content %}
+
+
+<div class="container-fluid px-lg-4">
+    {%  include 'app/dashboard/KPI_header.html' %}
+    <div class='row'>
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- title -->
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Top Selling Products</h4>
+                            <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- title -->
+                </div>
+                <div class="mx-3">
+                    <table class="FullPageDisplayTable table table-sm" id='myTable'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Product</th>
+                                <th>Date Orderd</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Update</th>
+                                <!-- <th>Actions</th> -->
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td >{{order.product}}</td>
+                                <td>{{order.date_created}}</td>
+                                <td>{{order.status}}</td>
+                                <td>{{order.note}}</td>
+                                <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
+    
+                                <!-- <td>
+                                    <div class='row'>
+                                    <a class="btn btn-sm btn-danger" href="#">Download 1</a>
+                                    <a class="btn btn-sm btn-danger ml-2" href="#">Download 2</a>
+                                    <a class="btn btn-sm btn-danger ml-2" href="#">Download 2</a>
+                                    </div>
+                                </td> -->
+    
+                            </tr>
+                            <!-- <tr>
+                                <td>{{order.product}}</td>
+                                <td>{{order.date_created}}</td>
+                                <td>{{order.status}}</td>
+                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+    
+                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+    
+                            </tr>
+                            <tr>
+                                <td>{{order.product}}</td>
+                                <td>{{order.date_created}}</td>
+                                <td>{{order.status}}</td>
+                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+    
+                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+    
+                            </tr>
+                            <tr>
+                                <td>{{order.product}}</td>
+                                <td>{{order.date_created}}</td>
+                                <td>{{order.status}}</td>
+                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+    
+                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+    
+                            </tr>
+                            <tr>
+                                <td>{{order.product}}</td>
+                                <td>{{order.date_created}}</td>
+                                <td>{{order.status}}</td>
+                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+    
+                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+    
+                            </tr> -->
+    
+                            {% endfor %}
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,284 @@
+{%  extends 'app/main.html' %}
+
+{% block title %} Orders {% endblock %}
+{% block content %}
+
+
+<div class="container-fluid px-lg-4">
+    <div class='row'>
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- title -->
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Orders</h4>
+                            <h5 class="card-subtitle">Overview of Orders</h5>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="dl">
+                                <!-- <select class="custom-select">
+                                    <option value="0" selected="">Monthly</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Yearly</option>
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- title -->
+                </div>
+                <div class="mx-3">
+                    <table class="table table-sm" id='order'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Update</th>
+                                <th>Retailer</th>
+                                <th>IC</th>
+                                <th>Delivery</th>
+                                <th>Date Placed</th>
+                                <th>Destination</th>
+                                <th>Consol Num</th>
+                                <th>FOB </th>
+                                <th>Due</th>
+                                <th>Account</th>
+                                <th>Currency</th>
+                                <th>Comm Value</th>
+                                <th>Order Value</th>
+                                <th>SDA Comm</th>
+                                <th>Penalty Yes/No</th>
+                                <th>Penalty Amt</th>
+                                <th>Date Booked</th>
+                                <th>Booking Mail Uploaded</th>
+                                <th>CRD</th>
+                                <th>Forwarder Given ETD</th>
+                                <th>Forwarder Given ETA</th>
+                                <th>Vessel Details</th>
+                                <th>Handover Date</th>
+                                <th>ASN No</th>
+                                <th>Status</th>
+                                <th>Units</th>
+                                <th>Total Cartons In Order</th>
+                                <th>Delivery EAN</th>
+                                <th>Container Number</th>
+                                <th>Arrival Date</th>
+                                <th>Primary Key</th>
+                            </tr>
+                        </thead>
+                        <tfoot class='thead-light'>
+                            <tr>
+                                <th>Update</th>
+                                <th>Retailer</th>
+                                <th>IC</th>
+                                <th>Delivery</th>
+                                <th>Date Placed</th>
+                                <th>Destination</th>
+                                <th>Consol Num</th>
+                                <th>FOB </th>
+                                <th>Due</th>
+                                <th>Account</th>
+                                <th>Currency</th>
+                                <th>Comm Value</th>
+                                <th>Order Value</th>
+                                <th>SDA Comm</th>
+                                <th>Penalty Yes/No</th>
+                                <th>Penalty Amt</th>
+                                <th>Date Booked</th>
+                                <th>Booking Mail Uploaded</th>
+                                <th>CRD</th>
+                                <th>Forwarder Given ETD</th>
+                                <th>Forwarder Given ETA</th>
+                                <th>Vessel Details</th>
+                                <th>Handover Date</th>
+                                <th>ASN No</th>
+                                <th>Status</th>
+                                <th>Units</th>
+                                <th>Total Cartons In Order</th>
+                                <th>Delivery EAN</th>
+                                <th>Container Number</th>
+                                <th>Arrival Date</th>
+                                <th>Primary Key</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#order tfoot th').each( function () {
+            var title = $('#order thead th').eq( $(this).index() ).text();
+            // Custom Styling for the search boxes
+            var styling = `display: block;width: 100; height: calc(2rem + 2px);
+                            padding: .1rem .1rem;
+                            font-size: .9rem;
+                            line-height: 1;
+                            color: #495057;
+                            background-color: #fff;
+                            border: 1px solid #ced4da;
+                            border-radius: .25rem;
+                            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;`
+
+            $(this).html( '<input type="text" style="'+styling+'" placeholder="'+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#order').DataTable({
+            lengthMenu: [[5, 10, 20, 50, 100], [5, 10, 20, 50, 100]],
+            orderCellsTop: true,
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+            "serverSide": true,
+            "ajax": "/api/order/?format=datatables",
+            "columns": [
+                            {
+                                "data": null,
+                                "render": function ( data, type, row ) {
+                                    var output = "<a class=\"btn btn-sm btn-info\" href=\"{% url 'update_order' 12345 %}\">" + "Update </a>"
+                                    output = output.replace(12345, data.order_pk);
+                                    return output;
+                                }
+                            },
+                            {"data": "retailer"},
+
+                            {"data": "ic"},
+                            {"data": "delivery"},
+                            {"data": "date_placed"},
+                            {"data": "destination"},
+                            {"data": "consol_num"},
+                            {"data": "fob"},
+                            {"data": "due"},
+                            {"data": "account"},
+                            {"data": "currency"},
+                            {"data": "comm_value"},
+                            {"data": "order_value"},
+                            {"data": "sda_comm"},
+                            {"data": "penalty_yes_no"},
+                            {"data": "penalty_amt"},
+                            {"data": "date_booked"},
+                            {"data": "booking_mail_uploaded"},
+                            {"data": "crd"},
+                            {"data": "forwarder_given_etd"},
+                            {"data": "forwarder_given_eta"},
+                            {"data": "vessel_details"},
+                            {"data": "handover_date"},
+                            {"data": "asn_no"},
+                            {"data": "status"},
+                            {"data": "units"},
+                            {"data": "total_cartons_in_order"},
+                            {"data": "delivery_ean"},
+                            {"data": "container_number"},
+                            {"data": "arrival_date"},
+                            {"data": "order_pk"},
+
+            ],
+            stateSave: true,
+            scrollY:true,
+            scrollX :true,
+            scrollCollapse: false,
+            paging:         true,
+            dom: 'Blfrtip',
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'noVis'
+                },
+              /*  {
+                    targets: [3,4,5],
+                    "visible": false,
+                },*/
+            ],
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)',
+                    text:'Select Columns'
+                    
+                },
+                {
+                    extend: 'collection',
+                    text: 'Download',
+                    buttons: [
+                        {
+                            text: 'Copy',
+                            extend:'copy',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'CSV',
+                            extend:'csv',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Excel',
+                            extend:'excel',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'PDF',
+                            extend:'pdf',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+                        {
+                            text: 'Print',
+                            extend:'print',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                            
+                        },
+    
+                    ]
+                }
+            ]
+        });
+      
+        // Restore state
+        var state = table.state.loaded();
+        if ( state ) {
+          table.columns().eq( 0 ).each( function ( colIdx ) {
+            var colSearch = state.columns[colIdx].search;
+            
+            if ( colSearch.search ) {
+              $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+            }
+          } );
+          
+          table.draw();
+        }
+        
+        // Apply the search
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                table
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
+            } );
+        } );
+    } );
+
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+<!-- column -->
+<div class='row'>
+    <div class="col-md-6 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <!-- title -->
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Top Selling Products</h4>
+                        <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="dl">
+                            <!-- <select class="custom-select">
+                                <option value="0" selected="">Monthly</option>
+                                <option value="1">Daily</option>
+                                <option value="2">Weekly</option>
+                                <option value="3">Yearly</option>
+                            </select> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- title -->
+            </div>
+            <div class="mx-3">
+                <table class="displayTable table table-sm" id='myTable'>
+                    <thead class='thead-light'>
+                        <tr>
+                            <th>Date Placed</th>
+                            <th>Destination</th>
+                            <th>Status</th>
+                            <th>Update</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                             <td>{{order.date_placed}}</td>
+                            <td>{{order.destination}}</td>
+                            <td>{{order.status}}</td>
+                            <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+
+                            <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <!-- title -->
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Top Selling Products</h4>
+                        <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="dl">
+                            <!-- <select class="custom-select">
+                                <option value="0" selected="">Monthly</option>
+                                <option value="1">Daily</option>
+                                <option value="2">Weekly</option>
+                                <option value="3">Yearly</option>
+                            </select> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- title -->
+                <div class="mx-3">
+                    <table class="displayTable table table-sm" id='myTable'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Date Placed</th>
+                                <th>Destination</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                 <td>{{order.date_placed}}</td>
+                                <td>{{order.destination}}</td>
+                                <td>{{order.status}}</td>
+                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+    
+                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+    
+                            </tr>
+    
+                            {% endfor %}
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
